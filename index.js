@@ -28,6 +28,7 @@ async function run() {
 
     // Create the coffee collection object
     const coffeCollection = client.db("coffe_DB").collection("coffee");
+    const userCollection = client.db("coffe_DB").collection("user");
 
     // POST request to add coffee data
     app.get("/coffe", async (req, res) => {
@@ -47,6 +48,15 @@ async function run() {
       const newCoffe = req.body;
       console.log(newCoffe);
       const result = await coffeCollection.insertOne(newCoffe);
+      res.send(result);
+    });
+
+    //  post for firebase create user
+
+    app.post("/user", async (req, res) => {
+      const newUser = req.body;
+      console.log(newUser);
+      const result = await userCollection.insertOne(newUser);
       res.send(result);
     });
 

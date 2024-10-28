@@ -51,15 +51,6 @@ async function run() {
       res.send(result);
     });
 
-    //  post for firebase create user
-
-    app.post("/user", async (req, res) => {
-      const newUser = req.body;
-      console.log(newUser);
-      const result = await userCollection.insertOne(newUser);
-      res.send(result);
-    });
-
     app.delete("/coffe/:id", async (req, res) => {
       const id = req.params.id;
       console.log(id);
@@ -85,6 +76,22 @@ async function run() {
         },
       };
       const result = await coffeCollection.updateOne(queary, coffe, options);
+      res.send(result);
+    });
+
+    //  post for firebase create user
+
+    app.post("/user", async (req, res) => {
+      const newUser = req.body;
+      console.log(newUser);
+      const result = await userCollection.insertOne(newUser);
+      res.send(result);
+    });
+
+    // read user data firebase
+    app.get("/user", async (req, res) => {
+      const queary = userCollection.find();
+      const result = await queary.toArray();
       res.send(result);
     });
 

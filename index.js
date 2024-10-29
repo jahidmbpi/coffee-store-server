@@ -94,6 +94,13 @@ async function run() {
       const result = await queary.toArray();
       res.send(result);
     });
+    // delete user from client side and database
+    app.delete("/user/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await userCollection.deleteOne(query);
+      res.send(result);
+    });
 
     app.get("/", (req, res) => {
       res.send("coffe making server is runnuing ");
